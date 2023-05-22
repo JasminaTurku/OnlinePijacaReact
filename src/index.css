@@ -1,0 +1,7 @@
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--secondary-color);
+}
