@@ -4,13 +4,19 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Context } from "../../Context";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "../select/SelectPerent.module.css";
 
 function BasicSelect(props) {
   const [market, setMarket] = useState("");
-  const { allMarket } = useContext(Context);
+  const [allMarket, setAllMarket] = useState([]);
+  const url = "https://localhost:5001/Pijaca/VratiPijaceSaTipovimaProizvoda";
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setAllMarket(data));
+  }, []);
 
   const handleChange = (event) => {
     const selectedMarket = event.target.value;
