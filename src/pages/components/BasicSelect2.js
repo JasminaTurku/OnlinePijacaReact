@@ -11,13 +11,14 @@ import { setArray } from "../../redux/product/slice";
 import { selectArray } from "../../redux/product/slice";
 
 function BasicSelect2(props) {
-  const [tip, setTip] = React.useState("");
+  const [tip, setTip] = useState("");
   const nizTipoviProizvoda = props.TipProizvoda;
   const element = props.el;
   const [pronadjeniTip, setPronadjeniTip] = useState("");
   const [proizodi, setProizvodi] = useState([]);
   const dispetch = useDispatch();
   const niz = useSelector(selectArray);
+  console.log(niz);
 
   const handleChange = (event) => {
     const selectedTip = event.target.value;

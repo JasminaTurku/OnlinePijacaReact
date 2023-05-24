@@ -1,5 +1,5 @@
 .cartIcon h3 {
-  border: 1px solid #ccc;
+  border: 1px solid #0e0d0d;
   border-radius: 20px;
   padding: 10px;
   cursor: pointer;
@@ -34,8 +34,12 @@ li {
   padding: 20px;
   font-size: 20px;
   font-weight: bold;
-  background: #2f3c7e;
-  color: #fbeaeb;
+  background-color: #ebebeb;
+  color: #000000;
+}
+article {
+  display: flex;
+  align-items: center;
 }
 .cartAction {
   color: white;

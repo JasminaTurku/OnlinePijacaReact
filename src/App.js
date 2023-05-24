@@ -6,7 +6,6 @@ import FooterComponents from "./pages/components/FooterComponents";
 import { useSelector, useDispatch } from "react-redux";
 import Login from "./pages/login/login";
 import { selectLogin } from "./redux/auth/slice";
-import Products from "./pages/components/Products";
 import Cart from "./pages/components/Cart";
 import CartItems from "./pages/components/CartItems";
 import Layout from "./pages/layout/Layout.js";
