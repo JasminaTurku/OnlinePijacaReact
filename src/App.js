@@ -1,8 +1,8 @@
 import { Switch, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import Home from "./pages/home/home.js";
+import Home from "./pages/home/home";
 import Login from "./pages/login/login";
-import Layout from "./pages/layout/Layout.js";
+import Layout from "./pages/cart/Cart";
 
 function App() {
   return (
