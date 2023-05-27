@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState, useEffect } from "react";
@@ -13,36 +14,57 @@ import {
 import { BasicSelect2Div } from "./styles";
 
 function BasicSelect2(props) {
+  const [pronadjeniNaziviTipa, setpronadjeniNaziviTipa] = useState("");
+  const oznacenaPijaca = useSelector((state) => state.nizMarket.pijace);
+  const tipoviProizvoda = props.TipProizvoda;
   const [tip, setTip] = useState("");
-  const nizTipoviProizvoda = props.TipProizvoda;
-  const element = props.el;
-  const [pronadjeniTip, setPronadjeniTip] = useState("");
-  const [proizodi, setProizvodi] = useState([]);
-  const dispetch = useDispatch();
-  const niz = useSelector(selectArray);
+  const [proizvodi, setProizvodi] = useState([]);
 
+  const data = localStorage.getItem("savedArrayKey");
+  const parsedData = JSON.parse(data);
+  console.log(parsedData.id);
+  useEffect(() => {
+    setpronadjeniNaziviTipa(
+      parsedData.tipoviProizvoda.map((m) => (
+        <MenuItem key={m.id}>{m.naziv}</MenuItem>
+      ))
+    );
+  }, []);
+  console.log(setpronadjeniNaziviTipa);
+  // useEffect(() => {
+  //   if (oznacenaPijaca !== "" && oznacenaPijaca.tipoviProizvoda !== []) {
+  //     setpronadjeniNaziviTipa(
+  //       oznacenaPijaca.tipoviProizvoda.map((e) => e.naziv)
+  //     );
+  //   } else alert("Odaberite pijacu");
+  // }, [oznacenaPijaca]);
+
+  // useEffect(() => {
+  //   setpronadjeniNaziviTipa(parsedData.tipoviProizvoda);
+  // }, []);
+  // useEffect(() => {
+  //   setpronadjeniNaziviTipa(
+  //     parsedData.tipoviProizvoda.map((p, index) => (
+  //       <MenuItem key={`market_${index}`} value={p.id}>
+  //         {p.naziv}
+  //       </MenuItem>
+  //     ))
+  //   );
+  // }, []);
   const handleChange = (event) => {
-    const selectedTip = event.target.value;
-    setTip(selectedTip);
-    const nadjen = nizTipoviProizvoda.find((t) => t.id == selectedTip);
-    dispetch(setArray(proizodi));
+    const selectedMarket = event.target.value;
 
-    if (nadjen) {
-      setPronadjeniTip(nadjen);
+    const el = pronadjeniNaziviTipa.find((a) => a.id == selectedMarket);
+    console.log(el);
+    if (el) {
+      setTip(el);
     }
-  };
 
-  useEffect(() => {
-    const jsonArray = JSON.stringify(niz);
-    localStorage.setItem("savedArrayKey", jsonArray);
-  }, [niz]);
-
-  useEffect(() => {
     fetch(
       "https://localhost:5001/Proizvod/VratiProizvodePijace?idPijace=" +
-        element.id +
+        parsedData.id +
         "&idTipaProizvoda=" +
-        pronadjeniTip.id
+        tip.key
     )
       .then(async (res) => {
         if (res.ok) {
@@ -54,16 +76,18 @@ function BasicSelect2(props) {
         }
       })
       .catch((err) => alert(err));
-  }, [pronadjeniTip.id]);
+  };
+  const jsonArray = JSON.stringify(proizvodi);
+  localStorage.setItem("proizvodi", jsonArray);
 
-  console.log(proizodi);
+  // }
+  // const obj = {};
+  // for (let i = 0; i < pronadjeniNaziviTipa.length; i++) {
+  //   const value = pronadjeniNaziviTipa[i + 1];
+  //   obj[i] = value;
+  // }
 
-  const tipoviProizvodaElements = nizTipoviProizvoda.map((t, index) => (
-    <MenuItem key={`tip_${index}`} value={t.id}>
-      {t.naziv}
-    </MenuItem>
-  ));
-
+  // console.log(obj);
   return (
     <BasicSelect2Div>
       <FormControl fullWidth>
@@ -71,11 +95,11 @@ function BasicSelect2(props) {
         <Select
           labelId="demo-simple-select-label"
           id="a"
-          value={tip}
+          value={pronadjeniNaziviTipa}
           label="Age"
           onChange={handleChange}
         >
-          {tipoviProizvodaElements}
+          {pronadjeniNaziviTipa}
         </Select>
       </FormControl>
     </BasicSelect2Div>

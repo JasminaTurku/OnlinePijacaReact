@@ -7,7 +7,7 @@ function Search() {
   const [niz, setNiz] = useState([]);
 
   useEffect(() => {
-    const savedArray = JSON.parse(localStorage.getItem("savedArrayKey"));
+    const savedArray = JSON.parse(localStorage.getItem("proizvodi"));
     setNiz(savedArray);
   }, []);
 

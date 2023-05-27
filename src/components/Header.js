@@ -3,22 +3,24 @@ import Button from "@mui/material/Button";
 import style from "./Header.module.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/auth/slice";
-import { Link } from "react-router-dom";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 function Header() {
   const dispetch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const putanja = () => {
-    window.location.href = "http://localhost:3000/login";
+    navigate("/login");
   };
   const homePutanja = () => {
-    window.location.href = "http://localhost:3000/";
+    navigate("/");
+
     dispetch(logout());
   };
 
   const loginSignIn = () => {
-    if (window.location.href == "http://localhost:3000/") {
+    if (location.pathname === "/") {
       return (
         <>
           <Button onClick={putanja} variant="text" style={{ color: "black" }}>
@@ -29,7 +31,7 @@ function Header() {
           </Button>
         </>
       );
-    } else if (window.location.href == "http://localhost:3000/cart") {
+    } else if (location.pathname === "/cart") {
       return (
         <>
           <Button

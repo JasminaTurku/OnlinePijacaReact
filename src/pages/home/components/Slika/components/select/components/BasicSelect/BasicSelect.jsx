@@ -6,33 +6,37 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState, useEffect } from "react";
 import { BasicSelectDiv } from "./styles";
+import { useDispatch } from "react-redux";
+import { setPijaca } from "../../../../../../../../redux/pijaca/slice";
 
 function BasicSelect(props) {
-  const [market, setMarket] = useState("");
-  const [allMarket, setAllMarket] = useState([]);
-  const url = "https://localhost:5001/Pijaca/VratiPijaceSaTipovimaProizvoda";
-
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setAllMarket(data));
-  }, []);
+  const dispetch = useDispatch();
+  const [manuItems, setmanuItems] = useState([]);
 
   const handleChange = (event) => {
     const selectedMarket = event.target.value;
-    setMarket(selectedMarket);
-    const element = allMarket.find((el) => el.id == selectedMarket);
+
+    const element = props.allMarket.find((el) => el.id == selectedMarket);
+    dispetch(setPijaca(element));
+    const jsonArray = JSON.stringify(element);
+    localStorage.setItem("savedArrayKey", jsonArray);
 
     if (element) {
       props.setElelemnt(element);
     }
   };
 
-  const allMarketElements = allMarket.map((p, index) => (
-    <MenuItem key={`market_${index}`} value={p.id}>
-      {p.naziv}
-    </MenuItem>
-  ));
+  useEffect(() => {
+    setmanuItems(
+      props.allMarket.map((p, index) => (
+        <MenuItem key={`market_${index}`} value={p.id}>
+          {p.naziv}
+        </MenuItem>
+      ))
+    );
+    props.setElelemnt(props.allMarket[0]);
+  }, [props.allMarket, props.setElelemnt]);
+
   return (
     <BasicSelectDiv>
       <Box sx={{ minWidth: 150 }}>
@@ -41,11 +45,12 @@ function BasicSelect(props) {
           <Select
             labelId="demo-simple-select-label"
             id="b"
-            value={market}
+            value={props.market}
             label="market"
             onChange={handleChange}
           >
-            {allMarketElements}
+            {/* {allMarketElements()} */}
+            {manuItems}
           </Select>
         </FormControl>
       </Box>
