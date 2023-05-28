@@ -22,7 +22,7 @@ export const H1 = styled.h1`
 `;
 
 export const Label = styled.label`
-  color: white;
+  color: black;
 `;
 
 export const Form = styled.form`
@@ -41,6 +41,8 @@ export const LoginBtn = styled.button`
   border: none;
   width: 89%;
   padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
 
   :hover {
     background: rgb(180, 243, 109);

@@ -1,14 +1,15 @@
-import Header from "../../components/Header";
-import FooterComponents from "../../components/FooterComponents";
-import Slika from "./components/Slika/Slika";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
+
+import Image from "./components/Slika/Image";
 import { HomeDiv } from "./styles";
 
 function Home() {
   return (
     <HomeDiv>
       <Header />
-      <Slika />
-      <FooterComponents />
+      <Image />
+      <Footer />
     </HomeDiv>
   );
 }

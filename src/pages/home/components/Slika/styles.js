@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import slika from "../../../../assets/homeImage/4.jpg";
 
-export const SlikaDiv = styled.div`
+export const ImageDiv = styled.div`
   display: flex;
   flex: 1;
   top: 0;
@@ -12,13 +12,3 @@ export const SlikaDiv = styled.div`
   justify-content: center;
   align-items: end;
 `;
-
-// .select {
-//   display: flex;
-//   justify-content: center;
-//   flex: 1;
-//   align-items: end;
-// }
-// .MuiInputLabel-outlined-css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
-//   color: azure !important;
-// }

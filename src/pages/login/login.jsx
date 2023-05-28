@@ -1,14 +1,14 @@
 import React from "react";
-import Login from "./components/Login/Login";
-import Header from "../../components/Header";
-import FooterComponents from "../../components/FooterComponents";
+import LoginForm from "./components/Login/loginForm";
+import Header from "../../components/header/Header";
+import FooterComponents from "../../components/footer/Footer";
 import { LoginDiv } from "./styles";
 
 function login() {
   return (
     <LoginDiv>
       <Header />
-      <Login />
+      <LoginForm />
       <FooterComponents />
     </LoginDiv>
   );

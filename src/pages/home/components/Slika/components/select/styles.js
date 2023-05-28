@@ -5,5 +5,5 @@ export const SelectDiv = styled.div`
   flex-direction: row;
   align-items: end;
   justify-content: center;
-  background-color: white;
+  /* background-color: white; */
 `;
