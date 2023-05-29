@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { cartAction } from "../../../../../redux/cart/slice";
+import { cartAction } from "../../../../redux/slice";
 import {
   Article,
   CartActionButton,
@@ -9,10 +9,10 @@ import {
 } from "./styles";
 
 function CardItem({ naziv, quantity, total, cena, id }) {
-  const dispetch = useDispatch();
+  const dispatch = useDispatch();
 
   const incrementCartItem = () => {
-    dispetch(
+    dispatch(
       cartAction.addToCart({
         naziv,
         id,
@@ -21,7 +21,7 @@ function CardItem({ naziv, quantity, total, cena, id }) {
     );
   };
   const decrementCartItem = () => {
-    dispetch(cartAction.removeToCart(id));
+    dispatch(cartAction.removeToCart(id));
   };
   return (
     <CartIconDiv>

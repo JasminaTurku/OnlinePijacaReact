@@ -7,7 +7,6 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       const newItem = action.payload;
-      //to check if item is already available
       const existingItem = state.itemsList.find(
         (item) => item.id === newItem.id
       );
@@ -39,10 +38,17 @@ const cartSlice = createSlice({
         existingItem.totalPrice -= existingItem.cena;
       }
     },
-    setShowCart(state) {
-      state.showCart = !state.showCart;
+    setProducts(state, action) {
+      state.products = action.payload;
+    },
+    setSearch(state, action) {
+      state.search = action.payload;
     },
   },
 });
 export default cartSlice;
 export const cartAction = cartSlice.actions;
+
+export const { setProducts, setAllProducts, setSearch } = cartSlice.actions;
+export const selectProducts = (state) => state.cart.products;
+export const selectSearch = (state) => state.cart.search;

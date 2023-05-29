@@ -8,7 +8,7 @@ export const FooterDiv = styled.div`
 `;
 
 export const TextDiv = styled.div`
-  display: inline;
+  display: block;
   letter-spacing: 0.2rem;
 `;
 export const H4 = styled.h4`

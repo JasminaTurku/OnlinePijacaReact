@@ -1,38 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import CardItems from "./components/cartItems/CardItems";
-import { Fragment } from "react";
-import Card from "./components/counterProduct/CounterProduct";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import Cart from "./components/cart/Cart";
 import Products from "./components/products/Products";
 import Header from "../../components/header/Header";
 import FooterComponents from "../../components/footer/Footer";
-import { BuyBtn, BuyDiv, CardDiv, H3, TotalPriceDiv } from "./styles";
+import { CardDiv, CommonDiv } from "./styles";
+import { useLocation } from "react-router";
+import { loadProducts } from "./reduxThunk/loadProducts";
+import Search from "./components/search/search";
 
-function Leyout() {
-  let total = 0;
-  const itemsList = useSelector((state) => state.cart.itemsList);
-  itemsList.forEach((item) => {
-    total += item.totalPrice;
-  });
+function Purchases() {
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-  const showCart = useSelector((state) => state.cart.showCart);
+  useEffect(() => {
+    const { state } = location;
+    const { market, productType } = state;
+    dispatch(loadProducts(market, productType));
+  }, [dispatch, location]);
+
   return (
     <>
       <CardDiv>
         <Header />
-        <Products />
-        <Card />
-        {showCart && <CardItems />}
-        <TotalPriceDiv>
-          <H3>Ukupna suma za naplatu: ${total}</H3>
-          <BuyDiv>
-            <BuyBtn>Kupi</BuyBtn>
-          </BuyDiv>
-        </TotalPriceDiv>
+        <CommonDiv>
+          <Search />
+          <Products />
+        </CommonDiv>
+        <Cart />
         <FooterComponents />
       </CardDiv>
     </>
   );
 }
 
-export default Leyout;
+export default Purchases;

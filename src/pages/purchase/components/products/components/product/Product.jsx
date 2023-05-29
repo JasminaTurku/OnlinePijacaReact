@@ -1,11 +1,8 @@
-import Rect, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cartAction } from "../../../../../../redux/cart/slice";
+import { useDispatch } from "react-redux";
+import { cartAction } from "../../../../redux/slice";
 import { CardDiv, Button, Img } from "./styles";
 
 function Product({ naziv, id, putanja, cena }) {
-  const cartItems = useSelector((state) => state.cart.itemsList);
-  console.log(cartItems);
   const dispetch = useDispatch();
 
   const addToCart = () => {

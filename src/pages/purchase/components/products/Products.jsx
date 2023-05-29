@@ -1,53 +1,47 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Product from "./components/product/Product";
-import { ProductDiv, CommonDiv, Input, SearchDiv } from "./styles";
+import { ProductDiv } from "./styles";
+import { useSelector } from "react-redux";
+import { selectProducts, selectSearch } from "../../redux/slice";
 
 function Products() {
-  const [niz, setNiz] = useState([]);
+  const products = useSelector(selectProducts);
+  const search = useSelector(selectSearch);
+
+  const [productsToView, setProductsToView] = useState([]);
 
   useEffect(() => {
-    const savedArray = JSON.parse(localStorage.getItem("proizvodi"));
-    setNiz(savedArray);
-  }, []);
-
-  const onChangeHandle = (e) => {
-    if (e.target.value == "") {
-      window.location.reload(true);
-      const tempArr = niz;
-      setNiz(tempArr);
-      return;
+    if (search === "") {
+      setProductsToView(products);
+    } else {
+      setProductsToView(
+        products.filter(
+          (product) =>
+            product.naziv.toLowerCase().startsWith(search.toLowerCase()) ||
+            product.cena
+              .toString()
+              .toLowerCase()
+              .startsWith(search.toLowerCase())
+        )
+      );
     }
+  }, [search, products]);
 
-    const searchResult = niz.filter(
-      (item) =>
-        item.naziv.toLowerCase().startsWith(e.target.value.toLowerCase()) ||
-        item.cena
-          .toString()
-          .toLowerCase()
-          .startsWith(e.target.value.toLowerCase())
-    );
-    setNiz(searchResult);
-  };
   return (
-    <CommonDiv>
-      <SearchDiv>
-        <Input type="text" placeholder="Search..." onChange={onChangeHandle} />
-      </SearchDiv>
-      <ProductDiv>
-        {niz.map((item) => {
-          return (
-            <Product
-              id={item.id}
-              naziv={item.naziv}
-              putanja={item.putanja}
-              cena={item.cena}
-              dostupan={item.dostupan}
-            />
-          );
-        })}
-      </ProductDiv>
-    </CommonDiv>
+    <ProductDiv>
+      {productsToView.map((product) => {
+        return (
+          <Product
+            id={product.id}
+            naziv={product.naziv}
+            putanja={product.putanja}
+            cena={product.cena}
+            dostupan={product.dostupan}
+            key={product.id}
+          />
+        );
+      })}
+    </ProductDiv>
   );
 }
 

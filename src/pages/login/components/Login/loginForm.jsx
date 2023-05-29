@@ -6,13 +6,13 @@ import { Input } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 function LoginForm() {
-  const dispetch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispetch(login());
+    dispatch(login());
   };
   const handleCart = () => {
     navigate("/card");

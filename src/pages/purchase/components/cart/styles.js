@@ -1,6 +1,21 @@
 import styled from "styled-components";
 
+export const Ul = styled.ul`
+  list-style-type: none;
+`;
+export const Li = styled.li`
+  padding: 10px;
+`;
 export const CardDiv = styled.div`
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  height: 400px;
+  padding: 10px;
+  overflow: scroll;
+  overflow-x: hidden;
+`;
+export const CounterDiv = styled.div`
   justify-content: center;
   display: flex;
 `;

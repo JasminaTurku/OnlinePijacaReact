@@ -1,39 +1,44 @@
 import React, { useState, useEffect } from "react";
-import SelectChildren1 from "./components/SelectChildren1/SelectChildren1";
-import SelectChildren2 from "./components/SelectChildren2/SelectChildren2";
+import MarketSelect from "./components/MarketSelect/MarketSelect";
 import { SelectDiv } from "./styles";
+import { useDispatch } from "react-redux";
+import { loadMarkets } from "../../../../reduxThunk/loadMarkets";
+import ProductTypeSelect from "./components/ProductTypeSelect/ProductTypeSelect";
+import { useNavigate } from "react-router";
 
-function SelectParent(props) {
-  const [market, setMarket] = useState("");
-  const [allMarket, setAllMarket] = useState([]);
-  const [el, setElelemnt] = useState([]);
-  const [TipProizvoda, setTipoviProizvoda] = useState([]);
-
-  const url = "https://localhost:5001/Pijaca/VratiPijaceSaTipovimaProizvoda";
+function SelectParent() {
+  const [allMarkets, setAllMarkets] = useState([]);
+  const [market, setMarket] = useState(undefined);
+  const [productType, setProductType] = useState(undefined);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setAllMarket(data));
+    dispatch(loadMarkets(setAllMarkets));
   }, []);
 
   useEffect(() => {
-    setTipoviProizvoda(allMarket.map((p) => p.tipoviProizvoda));
-  }, [allMarket]);
+    if (productType) {
+      navigate("/card", {
+        state: {
+          market,
+          productType,
+        },
+      });
+    }
+  }, [productType]);
 
   return (
     <SelectDiv>
-      <SelectChildren1
-        text="izaberi pijacu"
-        allMarket={allMarket}
+      <MarketSelect
+        allMarkets={allMarkets}
+        market={market}
         setMarket={setMarket}
-        setElelemnt={setElelemnt}
       />
-      <SelectChildren2
-        TipProizvoda={TipProizvoda}
-        el={el}
-        allMarket={allMarket}
-        text="Tipovi proizvoda"
+      <ProductTypeSelect
+        market={market}
+        productType={productType}
+        setProductType={setProductType}
       />
     </SelectDiv>
   );
